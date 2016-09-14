@@ -1,0 +1,34 @@
+{
+  "generator-karma": {
+    "base-path": "../",
+    "frameworks": "jasmine",
+    "browsers": "PhantomJS",
+    "app-files": "app/scripts/**/*.js",
+    "files-comments": "bower:js,endbower",
+    "bower-components-path": "bower_components",
+    "test-files": "test/mock/**/*.js,test/spec/**/*.js"
+  },
+  "generator-mocha": {
+    "ui": "bdd",
+    "rjs": false
+  },
+  "generator-fountain-angular1": {
+    "version": "0.7.2",
+    "props": {
+      "framework": "angular1",
+      "modules": "webpack",
+      "js": "js",
+      "ci": [],
+      "css": "css",
+      "resolved": "/usr/local/lib/node_modules/generator-fountain-webapp/node_modules/generator-fountain-angular1/generators/app/index.js",
+      "namespace": "fountain-angular1",
+      "argv": {
+        "remain": [],
+        "cooked": [],
+        "original": []
+      },
+      "sample": "techs",
+      "router": "uirouter"
+    }
+  }
+}

@@ -7,11 +7,11 @@
 
 
         function AuthService($log, $rootScope, $location, $http, $q, $cookieStore, $window){
-          var service;
+          var service = {};
           var user;
 
           if(this.currentUser === undefined)
-          service.currentUser = {};
+  s         service.currentUser = {};
 
           service.isUserDefined = function(){
             user = JSON.parse($window.localStorage.currentUser || null);
@@ -25,7 +25,7 @@
             }
           } ;
 
-          service.setUser = function(user, $q){
+          service.setUser = function(user){
 
             $log.log("Setting new user");
 
@@ -63,22 +63,23 @@
               }).then(function(response) {
 
                 // Setting the token to be used in the request
-                $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.access_token;
+                $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                 $log.log("Testing token:", response.data);
-                $log.log("Testing token 2:", response.access_token);
+                $log.log("Testing token 2:", response.token);
 
                 user = response.data;
                 return response;
 
               }, function(response){
                 $log.log("response", response);
-              }) // login
+              }); // login
 
-          }
-
+          };
 
         }
-
+        service.setToken = function(token){
+        service.token = token;
+       };
 
 
 

@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the myAppApp
  */
-angular.module('myAppApp')
+angular.module('app.login')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

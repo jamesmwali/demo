@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    angular
-        .module('app.login')
+    angular.module('app.login')
         .factory('AuthService', AuthService);
 
 
@@ -11,7 +10,7 @@
           var user;
 
           if(this.currentUser === undefined)
-  s         service.currentUser = {};
+          service.currentUser = {};
 
           service.isUserDefined = function(){
             user = JSON.parse($window.localStorage.currentUser || null);
@@ -76,10 +75,13 @@
 
           };
 
+          service.setToken = function(token){
+          service.token = token;
+         };
+
         }
-        service.setToken = function(token){
-        service.token = token;
-       };
+
+
 
 
 

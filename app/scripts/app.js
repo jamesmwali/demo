@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('myAppApp', [
+  .module('app.login', [
     'ngCookies',
     'ngMessages',
     'ngResource',
@@ -30,7 +30,7 @@ angular
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
-        controllerAs: 'login'
+        controllerAs: 'LoginCtrl'
       })
       .when('view', {
         templateUrl: 'views/view.html',

@@ -1,11 +1,12 @@
 (function(){
-    'use strict',
-      angualar
-        .module('app.login')
-        .controller('LoginCtrl', LoginCtrl);
+
+
+    'use strict';
+        angular.module('app.login')
+        .controller('LoginCtrl', LoginCtrl)
 
         function LoginCtrl($http, $q, $log, $location, $scope, $rootScope, $window,
-          myConfig, AuthService){
+          myConfig, AuthService) {
 
             $scope.login = function(){
                 var user;
@@ -27,8 +28,7 @@
                   }, function(response){
                     $log.log("Error res", response);
                   })
-                }
-            }; //login
+             }; //login
 
 
             function successfulLogin(response){
@@ -39,13 +39,26 @@
               var currentUser = {
                 username: data.username,
                 password: data.password,
-              }
+              };
 
-            }
+            $scope.current_user = current_user;
+            $rootScope.isLogged = true;
+            $log.log(current_user);
+            $rootScope.currentUser = current_user;
+
+            $window.localStorage.currentUser = JSON.stringify(current_user);
+            StorageService.set("currentUser");
+            AuthService.setToken(current_user);
+
+            $log.log("Set user: ",StorageService.set("currentUser"));
+            $log.log("Set token: ", AuthService.getToken());
+
+            AuthService.setUser(JSON.stringify(current_user));
+
+            $location.path('/view');
 
           }
+        }
+      } //
 
-
-
-
-})
+})();

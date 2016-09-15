@@ -3,22 +3,21 @@
 
     'use strict';
         angular.module('app.login')
-        .controller('LoginCtrl', LoginCtrl)
+        .controller('LoginCtrl', LoginCtrl);
 
-        function LoginCtrl($http, $q, $log, $location, $scope, $rootScope, $window,
-          myConfig, AuthService) {
+        function LoginCtrl($http, $log, $location, $scope, $rootScope, $window, AuthService) {
 
             $scope.login = function(){
                 var user;
 
                 $log.log("Running login Ctrl");
 
-                if($scope.loginform.username && $scope.loginform.password){
+                if($scope.username && $scope.password){
 
-                  AuthService.login($scope.loginform.username, $scope.loginform.password)
+                  AuthService.login($scope.username, $scope.password)
                   .then(function(response){
                     $log.log("login Response", response);
-                    if(response){
+                    if(response.status === 200){
                       $log.log("Response ----");
                       successfulLogin(response);
                     }else{

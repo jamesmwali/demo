@@ -1,15 +1,15 @@
 
 <div class="wrapper" ng-app="app.login" ng-controller="LoginCtrl" >
-  <form class="form-signin" ng-submit="login()" name="loginform">
+  <form class="form-signin" name="loginform">
     <h2 class="form-signin-heading">Please login</h2>
     <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus=""
-    ng-model="loginform.username"
+    ng-model="username"
     ng-minlength="3"
     ng-maxlength="50"
     />
     <br>
     <input type="password" class="form-control" name="password" placeholder="Password" required=""
-    ng-model="loginform.password"
+    ng-model="password"
     />
     <label class="checkbox">
       <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me

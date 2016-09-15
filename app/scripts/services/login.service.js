@@ -1,88 +1,180 @@
-(function () {
-    'use strict';
+// (function () {
+//     'use strict';
+//
+//     angular.module('app.login')
+//         .service('AuthService', AuthService);
+//
+//
+//         function AuthService($log, $rootScope, $location, $http, $window){
+//           var service = {};
+//           var user;
+//
+//           if(this.currentUser === undefined)
+//           service.currentUser = {};
+//
+//           service.isUserDefined = function(){
+//             user = JSON.parse($window.localStorage.currentUser || null);
+//             $log.log("User", isUserDefined);
+//             if(!user) {
+//
+//               $location.path("/");
+//             } else{
+//               $rootScope.currentUser = user;
+//               $rootScope.loginClass = "";
+//             }
+//           } ;
+//
+//           service.setUser = function(user){
+//
+//             $log.log("Setting new user");
+//
+//             // persistant
+//             $window.localStorage.currentUser = JSON.stringify(user);
+//             $cookieStore.put('globals', user);
+//
+//             //won't be retained after refresh
+//             service.currentUser = user;
+//             $rootScope.currentUser = user;
+//
+//
+//           };
+//
+//           service.login = function(username, password){
+//
+//               //Request payload
+//
+//               var data = {};
+//
+//               data = {
+//
+//                 'username': username,
+//                 'password': password,
+//               };
+//
+//               $log.log($http.headers);
+//
+//               return $http({
+//
+//                 method: 'post',
+//                 url: '//userservice.staging.tangentmicroservices.com:80/api­token­auth/',
+//                 data: data,
+//
+//               }).then(function(response) {
+//
+//                 // Setting the token to be used in the request
+//                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+//                 $log.log("Testing token:", response.data);
+//                 $log.log("Testing token 2:", response.token);
+//
+//                 user = response.data;
+//                 return response;
+//
+//               }, function(response){
+//                 $log.log("response", response);
+//               }); // login
+//
+//           };
+//
+//           service.setToken = function(token){
+//           service.token = token;
+//          };
+//
+//
+//          return service;
+//
+//         }
 
-    angular.module('app.login')
-        .factory('AuthService', AuthService);
+        'use strict';
+
+        angular.module('app.login')
+
+        .factory('AuthService',
+            ['$log', '$rootScope', '$location', '$http', '$window',
+            function ($log, $rootScope, $location, $http, $window) {
+
+              var service = {};
+              var user;
+
+              if(this.currentUser === undefined)
+              service.currentUser = {};
+
+              service.isUserDefined = function(){
+                user = JSON.parse($window.localStorage.currentUser || null);
+                $log.log("User", isUserDefined);
+                if(!user) {
+
+                  $location.path("/");
+                } else{
+                  $rootScope.currentUser = user;
+                  $rootScope.loginClass = "";
+                }
+              } ;
+
+              service.setUser = function(user){
+
+                $log.log("Setting new user");
+
+                // persistant
+                $window.localStorage.currentUser = JSON.stringify(user);
+                $cookieStore.put('globals', user);
+
+                //won't be retained after refresh
+                service.currentUser = user;
+                $rootScope.currentUser = user;
 
 
-        function AuthService($log, $rootScope, $location, $http, $q, $cookieStore, $window){
-          var service = {};
-          var user;
-
-          if(this.currentUser === undefined)
-          service.currentUser = {};
-
-          service.isUserDefined = function(){
-            user = JSON.parse($window.localStorage.currentUser || null);
-            $log.log("User", isUserDefined);
-            if(!user) {
-
-              $location.path("/");
-            } else{
-              $rootScope.currentUser = user;
-              $rootScope.loginClass = "";
-            }
-          } ;
-
-          service.setUser = function(user){
-
-            $log.log("Setting new user");
-
-            // persistant
-            $window.localStorage.currentUser = JSON.stringify(user);
-            $cookieStore.put('globals', user);
-
-            //won't be retained after refresh
-            service.currentUser = user;
-            $rootScope.currentUser = user;
-
-
-          };
-
-          service.login = function(username, password){
-
-              //Request payload
-
-              var data = {};
-
-              data = {
-
-                'username': username,
-                'password': password,
               };
 
-              $log.log($http.headers);
+              service.login = function (username, password) {
 
-              return $http({
+                 var data = {};
+                 data = {
 
-                method: 'post',
-                url: '//userservice.staging.tangentmicroservices.com:80/api­token­auth/',
-                data: data,
+                   'username': username,
+                   'password': password,
+                 }
 
-              }).then(function(response) {
+                 return $http({
+                    method: 'post',
+                    url: '//userservice.staging.tangentmicroservices.com/api-token-auth/',
+                    data: data,
+                 }).then(function(response){
+                    $log.log("Service res", response);
+                 }, function(res){
+                  $log.log("failed ---", res);
+                });
 
-                // Setting the token to be used in the request
-                $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                $log.log("Testing token:", response.data);
-                $log.log("Testing token 2:", response.token);
+                // $http.post('//userservice.staging.tangentmicroservices.com/api-token-auth/', { username: username, password: password })
+                //    .success(function (response) {
+                //        $log.log("Service response -->",response);
+                //    });
 
-                user = response.data;
-                return response;
+                 };
+                   service.SetCredentials = function (username, password) {
+                   var authdata = Base64.encode(username + ':' + password);
 
-              }, function(response){
-                $log.log("response", response);
-              }); // login
+                $rootScope.globals = {
+                    currentUser: {
+                        username: admin,
+                        authdata: authdata
+                    }
+                };
 
+                $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+                $cookieStore.put('globals', $rootScope.globals);
+            };
+
+            service.ClearCredentials = function () {
+              $rootScope.globals = {};
+              $cookieStore.remove('globals');
+              $http.defaults.headers.common.Authorization = 'Basic ';
           };
 
-          service.setToken = function(token){
-          service.token = token;
-         };
 
-        }
-
+              service.setToken = function(token){
+              service.token = token;
+             };
 
 
-
-
-});
+                return service;
+            }])

@@ -30,7 +30,7 @@ angular
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
-        controllerAs: 'LoginCtrl'
+        controllerAs: 'login'
       })
       .when('view', {
         templateUrl: 'views/view.html',

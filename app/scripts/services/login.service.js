@@ -141,8 +141,7 @@
 
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $log.log("Testing token:", response.data);
-                    $log.log("Testing token 2:", response.token);
-
+                    
                     user = response.data;
                     return response;
 

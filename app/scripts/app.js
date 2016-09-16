@@ -32,9 +32,10 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      .when('view', {
+      .when('/view', {
         templateUrl: 'views/view.html',
         controller: 'ViewCtrl',
+        controllerAs: 'view'
       })
       .otherwise({
         redirectTo: '/'

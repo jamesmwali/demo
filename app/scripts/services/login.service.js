@@ -89,8 +89,8 @@
         angular.module('app.login')
 
         .factory('AuthService',
-            ['$log', '$rootScope', '$location', '$http', '$window',
-            function ($log, $rootScope, $location, $http, $window) {
+            ['$log', '$rootScope', '$location', '$http', '$window', '$cookieStore',
+            function ($log, $rootScope, $location, $http, $window, $cookieStore) {
 
               var service = {};
               var user;
@@ -129,7 +129,6 @@
 
                  var data = {};
                  data = {
-
                    'username': username,
                    'password': password,
                  }
@@ -139,7 +138,14 @@
                     url: '//userservice.staging.tangentmicroservices.com/api-token-auth/',
                     data: data,
                  }).then(function(response){
-                    $log.log("Service res", response);
+
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $log.log("Testing token:", response.data);
+                    $log.log("Testing token 2:", response.token);
+
+                    user = response.data;
+                    return response;
+
                  }, function(res){
                   $log.log("failed ---", res);
                 });
@@ -149,8 +155,9 @@
                 //        $log.log("Service response -->",response);
                 //    });
 
-                 };
-                   service.SetCredentials = function (username, password) {
+                };
+
+              service.SetCredentials = function (username, password) {
                    var authdata = Base64.encode(username + ':' + password);
 
                 $rootScope.globals = {
@@ -162,19 +169,25 @@
 
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
                 $cookieStore.put('globals', $rootScope.globals);
-            };
+               };
 
-            service.ClearCredentials = function () {
+             service.ClearCredentials = function () {
               $rootScope.globals = {};
               $cookieStore.remove('globals');
               $http.defaults.headers.common.Authorization = 'Basic ';
-          };
+            };
 
 
               service.setToken = function(token){
               service.token = token;
              };
 
+              service.setToken = function(token){
+              service.token = token;
+            };
+             service.getToken = function(){
+              return service.token || null;
+            };
 
                 return service;
             }])

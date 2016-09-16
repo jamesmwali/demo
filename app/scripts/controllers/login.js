@@ -16,12 +16,18 @@
                   AuthService.login($scope.username, $scope.password)
                   .then(function(response){
                     $log.log("login Response", response);
+
                     if(response){
-                      $log.log("Response ----");
-                      successfulLogin(response);
-                    }else{
-                      $scope.loginErrorMsg = 'Your username and password do not match';
-                    }
+                      if(response.status == 200){
+
+                        $location.path('/view');
+                        $log.log("Response ----");
+                        successfulLogin(response);
+
+                      }else{
+                        $scope.loginErrorMsg = 'Your username and password do not match';
+                      }
+                  }
 
                   }, function(response){
                     $log.log("Error res", response);
@@ -52,8 +58,6 @@
             $log.log("Set token: ", AuthService.getToken());
 
             AuthService.setUser(JSON.stringify(currentUser));
-
-            $location.path('/view');
 
           }
         }

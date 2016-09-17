@@ -1,55 +1,56 @@
 <div class="row marketing" ng-controller="AddUserCtrl">
   <h4>Welcome Admin</h4>
-  <form name = "addUserForm" method="post">
+  <form name = "projectForm">
 
-         <h1>User</h1>
+         <h1>Project</h1>
 
          <fieldset>
-           <legend><span class="number">1</span>User basic info</legend>
-           <label for="First Name">First Name:</label>
-           <input type="text" id="firstname" name="firstname" ng-model="firstname" placeholder="first name">
+           <legend><span class="number">1</span>Project basic info</legend>
+           <label for="First Name">Title:</label>
+           <input type="text" id="title" name="title" ng-model="title" placeholder="Project Title">
 
-           <label for="mail">Last Name:</label>
-           <input type="text" id="lastname" name="lastname" ng-model="lastname"  placeholder="last name">
+           <label >Description:</label>
+           <input type="text" id="description" name="description" ng-model="description"
+            placeholder="Project Description">
 
-           <label for="mail">Username:</label>
-           <input type="text" id="username" name="userame" ng-model="username"
+           <label for="mail">Start Date (YYYY-MM-DD):</label>
+           <input type="Date" id="start_date" name="start_date" ng-model="start_date"
            ng-minlength="3"
            ng-maxlength="30"
            required
-           placeholder="username"
+           placeholder="Project Start Date"
            >
 
-           <label for="mail">Email:</label>
-           <input type="email" id="mail" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
-           required="true" name="email" ng-model="email" placeholder="Email">
-
+           <label for="mail">End Date (YYYY-MM-DD): </label>
+           <input type="Date" id="mail"
+           required="true" name="end_date" ng-model="end_date" placeholder="Project End Date">
+<!--
          <fieldset>
            <legend><span class="number">2</span>Profile</legend>
            <label for="bio">Biography:</label>
            <textarea id="bio" name="bio" ng-model="bio" placeholder="Write a very vrey very short bio"></textarea>
-         </fieldset>
+         </fieldset> -->
 
          <fieldset>
 
 
-           <label>Staff:</label>
-           <input id="radio-button-yes" checked="checked" name="staff" type="radio" ng-model="staff" value="Yes" />
-           <label for="radio-button-yes" class="light"> Yes</label>
+           <label>Billable:</label>
+           <input id="radio-button-yes" checked="checked" name="billable" type="radio" ng-model="billable" value="true" />
+           <label for="radio-button-yes" class="light">Yes</label>
 
-           <input id="radio-button-no" name="staff" type="radio" value="No" ng-model="staff"/>
+           <input id="radio-button-no" name="billable" type="radio" value="false" ng-model="billable"/>
            <label for="radio-button-no" class="light" >No</label>
 
           <br>
-          <label>Superuser:</label>
-          <input id="radio-button-yes" checked="checked" name="superuser" ng-model="superuser" type="radio" value="Yes" />
+          <label>Active:</label>
+          <input id="radio-button-yes" checked="checked" name="active" ng-model="active" type="radio" value="true" />
           <label for="radio-button-yes" class="light" >Yes</label>
 
-          <input id="radio-button-no" name="superuser" type="radio" value="No" ng-model="superuser" />
+          <input id="radio-button-no" name="active" type="radio" value="false" ng-model="active" />
           <label for="radio-button-no" class="light">No</label>
 
          </fieldset>
-         <button type="submit" ng-click = "addUser()" >Add User</button>
+         <button type="submit" ng-disabled="projectForm.$invalid" ng-click = "addProject()" >Add Project</button>
        </form>
 
 </div>

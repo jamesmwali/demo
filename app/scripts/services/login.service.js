@@ -139,10 +139,14 @@
                     data: data,
                  }).then(function(response){
                     var service = {};
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $http.defaults.headers.common.Authorization = 'Basic ' + response.data;
+                    $cookieStore.put('globals', $rootScope.globals);
                     $log.log("Testing token:", response.data);
 
                   //  service.setToken(response.data);
+                    $http.defaults.headers.common['Authorization'] = 'Basic ' + response.data; // jshint ignore:line
+                    $cookieStore.put('globals', $rootScope.globals);
+
                     user = response.data;
                     return response;
 
@@ -157,19 +161,19 @@
 
                 };
 
-              service.SetCredentials = function (username, password) {
-                   var authdata = Base64.encode(username + ':' + password);
+              // service.SetCredentials = function (username, password) {
+              //      var authdata = Base64.encode(username + ':' + password);
+              //
+              //   $rootScope.globals = {
+              //       currentUser: {
+              //           username: admin,
+              //           authdata: authdata
+              //       }
+              //   };
 
-                $rootScope.globals = {
-                    currentUser: {
-                        username: admin,
-                        authdata: authdata
-                    }
-                };
-
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-                $cookieStore.put('globals', $rootScope.globals);
-               };
+              //   $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+              //   $cookieStore.put('globals', $rootScope.globals);
+              //  };
 
              service.ClearCredentials = function () {
               $rootScope.globals = {};

@@ -8,8 +8,8 @@
 
     $log.log("Add User controller");
 
-     $scope.addUser = function(){
-       $log.log("Adding User");
+     $scope.addProject = function(){
+       $log.log("Adding Project");
        /*
 
        {
@@ -37,44 +37,89 @@
        }
        */
        var token = AuthService.getToken();
-       var data =
-         {
-           "first_name": $scope.addUserForm.firstname,
-           "last_name": $scope.addUserForm.lastname,
-           "username": $scope.addUserForm.username,
-           "email": $scope.addUserForm.email,
-           "is_staff": $scope.addUserForm.is_staff,
-           "is_superuser": $scope.addUserForm.is_superuser,
-           "profile": {
-             "contact_number": "",
-             "status_message": "",
-             "bio": $scope.addUserForm.bio,
-           },
-           "authentications": [
-             {
-               "service_name": "",
-               "key": "",
-               "token": token,
-             }
-           ],
-           "roles": "field"
-         };
+      //  var data =
+      //    {
+      //      "id":"",
+      //      "first_name": $scope.addUserForm.firstname,
+      //      "last_name": $scope.addUserForm.lastname,
+      //      "username": $scope.addUserForm.username,
+      //      "email": $scope.addUserForm.email,
+      //      "is_staff": $scope.addUserForm.is_staff,
+      //      "is_superuser": $scope.addUserForm.is_superuser,
+      //      "profile": {
+      //        "contact_number": "",
+      //        "status_message": "",
+      //        "bio": $scope.addUserForm.bio,
+      //      },
+      //      "authentications": [
+      //        {
+      //          "id": "",
+      //          "service_name": "",
+      //          "key": "",
+      //          "token": token,
+      //        }
+      //      ],
+      //      "roles": "field"
+      //    };
 
+      var data =
+      {
+        "pk": 0,
+        "title": $scope.title,
+        "description": $scope.description,
+        "start_date": $scope.start_date,
+        "end_date": $scope.end_date,
+        "is_billable": $scope.billable,
+        "is_active": $scope.active,
+        "task_set": [
+          {
+            "id": 0,
+            "title": "",
+            "due_date": "date",
+            "estimated_hours": "decimal",
+            "project": "field",
+            "project_data": {
+              "pk": 0,
+              "title":$scope.title,
+              "description": $scope.description,
+              "start_date": $scope.start_date,
+              "end_date": "$scope.end_date",
+              "is_billable": $scope.billable,
+              "is_active": $scope.billable
+            }
+          }
+        ],
+        "resource_set": [
+          {
+            "id": "",
+            "user": "",
+            "start_date": "date",
+            "end_date": "date",
+            "rate": "float",
+            "agreed_hours_per_month": "decimal",
+            "created": "datetime",
+            "updated": "datetime",
+            "project": "field"
+          }
+        ]
+        }
         //  $log.log("Add user payload", JSON.stringify(data));
 
          $http({
            method: 'post',
-           url: '//userservice.staging.tangentmicroservices.com/api/v1/users/',
+          //  url: '//userservice.staging.tangentmicroservices.com/api/v1/users/',
+           url: '//projectservice.staging.tangentmicroservices.com:80/api/v1/projects/',
            data: data,
          }).then(function(response){
-           $log.log("New user added");
+
+           $log.log("New project added");
            $log.log(response, AuthService.getNewUser(response));
            AuthService.setNewUser(response);
 
          }, function(response){
            var msg ;
            if(response.status === 409){
-             msg = 'Account already exists';
+             msg = 'Project already exists';
 
              $scope.addUserError = msg;
            }

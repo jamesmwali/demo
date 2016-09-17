@@ -14,17 +14,19 @@
                 if($scope.username!== '' && $scope.password!== ''){
 
                   AuthService.login($scope.username, $scope.password)
-                  .then(function(response){
+                  .then(function(response) {
                     $log.log("login Response", response);
+                    $log.log("Token after login --->", response.data);
+                    AuthService.setToken(response.data);
 
                     if(response){
-                      if(response.status == 200){
+                      if(response.status === 200){
 
                         $location.path('/view');
                         $log.log("Response ----");
                         successfulLogin(response);
 
-                      }else{
+                      }else if(response.status === 401){
                         $scope.loginErrorMsg = 'Your username and password do not match';
                       }
                   }
@@ -41,8 +43,8 @@
               var data = response.data;
 
               var currentUser = {
-                username: data.username,
-                password: data.password,
+                username: $scope.username,
+                password: $scope.password,
               };
 
             $scope.currentUser = currentUser;
@@ -52,7 +54,7 @@
 
             $window.localStorage.currentUser = JSON.stringify(currentUser);
           //  StorageService.set("currentUser");
-            AuthService.setToken(currentUser);
+
 
             //$log.log("Set user: ",StorageService.set("currentUser"));
             $log.log("Set token: ", AuthService.getToken());

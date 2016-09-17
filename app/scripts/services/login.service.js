@@ -138,10 +138,11 @@
                     url: '//userservice.staging.tangentmicroservices.com/api-token-auth/',
                     data: data,
                  }).then(function(response){
-
+                    var service = {};
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $log.log("Testing token:", response.data);
-                    
+
+                  //  service.setToken(response.data);
                     user = response.data;
                     return response;
 
@@ -181,11 +182,15 @@
               service.token = token;
              };
 
-              service.setToken = function(token){
-              service.token = token;
-            };
              service.getToken = function(){
               return service.token || null;
+            };
+
+            service.getNewUser = function(){
+              return service.new_user || null;
+            };
+            service.setNewUser = function(obj){
+              service.new_user = obj;
             };
 
                 return service;

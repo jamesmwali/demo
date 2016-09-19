@@ -15,6 +15,9 @@
     </label>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()" ng-disabled="loginform.$invalid" >Login</button>
+    <div ng-show="loginErrorMsg">
+                <span style="color:red" role="alert">{{loginErrorMsg}}</span>
+   </div>
   </form>
   <br>
 </div>

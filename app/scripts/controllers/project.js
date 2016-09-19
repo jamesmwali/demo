@@ -2,11 +2,11 @@
 
   'use strict';
   angular.module('app.login')
-  .controller('AddUserCtrl', AddUserCtrl);
+  .controller('ProjectCtrl', ProjectCtrl);
 
-  function AddUserCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http){
+  function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http){
 
-    $log.log("Add User controller");
+    $log.log("Add Project controller");
 
      $scope.addProject = function(){
        $log.log("Adding Project");
@@ -129,7 +129,7 @@
            }
          });
 
-     };  //end of add user ;
+     };  //end of add project ;
 
 
 

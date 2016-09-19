@@ -33,9 +33,9 @@ angular
         controllerAs: 'login'
       })
       .when('/view', {
-        templateUrl: 'views/view.html',
-        controller: 'AddUserCtrl',
-        controllerAs: 'add'
+        templateUrl: 'views/project.html',
+        controller: 'ProjectCtrl',
+        controllerAs: 'project'
       })
       .otherwise({
         redirectTo: '/'

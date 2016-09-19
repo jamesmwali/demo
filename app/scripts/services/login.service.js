@@ -138,7 +138,7 @@
                     url: '//userservice.staging.tangentmicroservices.com/api-token-auth/',
                     data: data,
                  }).then(function(response){
-                    var service = {};
+
                     $http.defaults.headers.common.Authorization = 'Basic ' + response.data;
                     $cookieStore.put('globals', $rootScope.globals);
                     $log.log("Testing token:", response.data);
@@ -152,12 +152,8 @@
 
                  }, function(res){
                   $log.log("failed ---", res);
-                });
 
-                // $http.post('//userservice.staging.tangentmicroservices.com/api-token-auth/', { username: username, password: password })
-                //    .success(function (response) {
-                //        $log.log("Service response -->",response);
-                //    });
+                });
 
                 };
 

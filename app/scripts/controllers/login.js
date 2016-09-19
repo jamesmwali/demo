@@ -15,20 +15,19 @@
 
                   AuthService.login($scope.username, $scope.password)
                   .then(function(response) {
-                    $log.log("login Response", response);
-                    $log.log("Token after login --->", response.data);
-                    AuthService.setToken(response.data);
 
                     if(response){
-                      if(response.status === 200){
+                      $log.log("login Response", response);
+                      $log.log("Token after login --->", response.data);
+                      AuthService.setToken(response.data);
 
-                        $location.path('/view');
-                        $log.log("Response ----");
-                        successfulLogin(response);
+                      $location.path('/view');
+                      $log.log("Response ----");
+                      successfulLogin(response);
 
-                      }else if(response.status === 401){
-                        $scope.loginErrorMsg = 'Your username and password do not match';
-                      }
+
+                  }else{
+                    $scope.loginErrorMsg = 'Your username and password do not match';
                   }
 
                   }, function(response){

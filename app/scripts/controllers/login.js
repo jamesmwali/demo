@@ -18,8 +18,8 @@
 
                     if(response){
                       $log.log("login Response", response);
-                      $log.log("Token after login --->", response.data);
-                      AuthService.setToken(response.data);
+                      $log.log("Token after login --->", response.data.token);
+                      AuthService.setToken(response.data.token);
 
                       $location.path('/view');
                       $log.log("Response ----");

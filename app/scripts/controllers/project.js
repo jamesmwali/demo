@@ -4,17 +4,17 @@
   angular.module('app.login')
   .controller('ProjectCtrl', ProjectCtrl);
 
-  function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService){
+  function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService, $window){
 
     $scope.activeAddProject = function(){
 
         if($scope.AddProjectForm === true){
           $scope.AddProjectForm = false;
-          $scope.editProjectForm = false;
+
         }else {
           $scope.AddProjectForm = true;
           $scope.DelProjectForm = false;
-          $scope.editProjectForm = false;
+          $scope.EditProjectForm = false;
 
         }
 
@@ -78,18 +78,17 @@
            if(response){
            $log.log("New project added");
            $log.log("Response", response);
-          //  $log.log(response, AuthService.getNewUser(response));
-          //  AuthService.setNewUser(response);
-          /*
-          getProjDesc
-          */
-            $scope.message = "Project has been created";
 
-            AuthService.setNewPk(response.data.pk);
-            AuthService.setProjName(response.data.title);
-            AuthService.setProjDesc(response.data.description);
-            AuthService.setNewProject(response.data);
+          $scope.SuccessMessage = "Project has been created";
 
+            ProjectService.setNewPk(response.data.pk);
+            ProjectService.setProjName(response.data.title);
+            ProjectService.setProjDesc(response.data.description);
+            ProjectService.setNewProject(response.data);
+
+
+            var project = ProjectService.getNewProject();
+            $window.localStorage.Newproject = JSON.stringify(project);
           }
 
          }, function(response){
@@ -98,6 +97,8 @@
              $scope.addProjectError = msg;
 
          });
+         //
+
 
      };  //end of add project ;
 

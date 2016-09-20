@@ -4,7 +4,48 @@
   angular.module('app.login')
   .controller('ProjectCtrl', ProjectCtrl);
 
-  function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http){
+  function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService){
+
+    $scope.activeAddProject = function(){
+
+        if($scope.AddProjectForm === true){
+          $scope.AddProjectForm = false;
+          $scope.editProjectForm = false;
+        }else {
+          $scope.AddProjectForm = true;
+          $scope.DelProjectForm = false;
+          $scope.editProjectForm = false;
+
+        }
+
+    };
+    $scope.activeDelProject = function(){
+
+      if($scope.DelProjectForm === true){
+        $scope.DelProjectForm = false;
+
+      }else {
+        $scope.DelProjectForm = true;
+        $scope.EditProjectForm = false;
+        $scope.AddProjectForm = false;
+
+      }
+
+    };
+
+    $scope.activeEditProject = function(){
+
+      if($scope.EditProjectForm === true){
+        $scope.EditProjectForm = false;
+
+      }else {
+        $scope.EditProjectForm = true;
+        $scope.DelProjectForm = false;
+        $scope.AddProjectForm = false;
+
+      }
+
+    };
 
     $log.log("Add Project controller");
 

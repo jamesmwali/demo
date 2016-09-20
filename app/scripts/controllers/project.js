@@ -64,7 +64,7 @@
 
       var data =
       {
-        "pk": 0,
+        //"pk": 0,
         "title": $scope.title,
         "description": $scope.description,
         "start_date": $scope.start_date,
@@ -73,13 +73,13 @@
         "is_active": $scope.active,
         "task_set": [
           {
-            "id": 0,
-            "title": "",
-            "due_date": "date",
-            "estimated_hours": "decimal",
-            "project": "field",
+            // "id": 0,
+            // "title": "",
+            // "due_date": "date",
+            // "estimated_hours": "decimal",
+            // "project": "field",
             "project_data": {
-              "pk": 0,
+            //  "pk": 0,
               "title":$scope.title,
               "description": $scope.description,
               "start_date": $scope.start_date,
@@ -90,18 +90,18 @@
           }
         ],
         "resource_set": [
-          {
-            "id": "",
-            "user": "",
-            "start_date": "date",
-            "end_date": "date",
-            "rate": "float",
-            "agreed_hours_per_month": "decimal",
-            "created": "datetime",
-            "updated": "datetime",
-            "project": "field"
-          }
-        ]
+          // {
+          //   "id": "",
+          //   "user": "",
+          //   "start_date": "date",
+          //   "end_date": "date",
+          //   "rate": "float",
+          //   "agreed_hours_per_month": "decimal",
+          //   "created": "datetime",
+          //   "updated": "datetime",
+          //   "project": "field"
+          // }
+          ]
         }
         //  $log.log("Add user payload", JSON.stringify(data));
 

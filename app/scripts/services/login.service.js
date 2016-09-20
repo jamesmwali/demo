@@ -139,13 +139,13 @@
                     data: data,
                  }).then(function(response){
 
-                    $http.defaults.headers.common.Authorization = 'Basic ' + response.data.token;
-                    $cookieStore.put('globals', $rootScope.globals);
+                    $http.defaults.headers.common.Authorization = 'Token ' + response.data.token;
+                    $cookieStore.put('Token', $rootScope.globals);
                     $log.log("Testing token:", response.data.token);
 
                   //  service.setToken(response.data);
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + response.data.token; // jshint ignore:line
-                    $cookieStore.put('globals', $rootScope.globals);
+                    $http.defaults.headers.common['Authorization'] = 'Token ' + response.data.token; // jshint ignore:line
+                    $cookieStore.put('Token', $rootScope.globals);
 
                     user = response.data;
                     return response;
@@ -166,7 +166,7 @@
               //           authdata: authdata
               //       }
               //   };
-
+              //
               //   $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
               //   $cookieStore.put('globals', $rootScope.globals);
               //  };
@@ -174,7 +174,7 @@
              service.ClearCredentials = function () {
               $rootScope.globals = {};
               $cookieStore.remove('globals');
-              $http.defaults.headers.common.Authorization = 'Basic ';
+              $http.defaults.headers.common.Authorization = 'Token ';
             };
 
 
@@ -186,12 +186,38 @@
               return service.token || null;
             };
 
-            service.getNewUser = function(){
+            service.getNewProject = function(){
               return service.new_user || null;
             };
-            service.setNewUser = function(obj){
+            service.setNewProject = function(obj){
               service.new_user = obj;
             };
+
+            service.getNewPk = function(){
+              return service.new_pk || null;
+            };
+
+            service.setNewPk = function(obj){
+              service.new_pk = obj;
+            };
+
+            service.getProjName = function(){
+              return service.new_name || null;
+            };
+
+            service.setProjName = function(obj){
+              service.new_name = obj;
+            };
+
+            service.getProjDesc = function(){
+              return service.new_desc || null;
+            };
+
+            service.setProjDesc = function(obj){
+              service.new_desc = obj;
+            };
+
+
 
                 return service;
             }])

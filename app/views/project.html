@@ -1,8 +1,33 @@
-<div class="row marketing" ng-controller="ProjectCtrl">
-  <h4>Welcome Admin</h4>
+
+<!-- <div>
+ <button type="submit" class="btn-primary" ng-click = "activeAddProject()" >Add Project</button>
+</div>
+<br>
+<div>
+ <button type="submit" class="btn-warning" ng-click="activeEditProject()"> Edit Project </button>
+</div>
+-->
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" ng-click = "activeAddProject()" >Create Project</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" ng-click="activeEditProject()">Edit Project</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" ng-click="activeDelProject()">Delete Project</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" ng-click="activeViewProject()">View All Projects</a>
+  </li>
+</ul>
+
+<h4>Welcome Admin</h4>
+<div class="row marketing" ng-show="AddProjectForm" ng-controller="ProjectCtrl">
   <form name = "projectForm" >
 
-         <h1>Project</h1>
+         <h1>Create Project</h1>
 
          <fieldset>
            <legend><span class="number">1</span>Project basic info</legend>
@@ -53,7 +78,97 @@
          <div ng-show="loginErrorMsg">
            <span style="color:red" role="alert">{{message}} || {{msg}} </span>
         </div>
-         <button type="submit" ng-disabled="projectForm.$invalid" ng-click = "addProject()" >Add Project</button>
+        <div>
+         <button type="submit" class="btn-primary" ng-disabled="projectForm.$invalid" ng-click = "addProject()" >Add Project</button>
+       </div>
        </form>
 
 </div>
+
+
+
+<!-- edit div -->
+
+<div class="row marketing" ng-show="EditProjectForm" ng-controller="ProjectEditCtrl">
+  <form name = "projectForm" >
+
+         <h1>Edit Project</h1>
+
+         <fieldset>
+           <legend><span class="number">1</span>Edit basic info</legend>
+           <label for="First Name">Title:</label>
+           <input type="text" id="title" name="Title" ng-model="Title" placeholder="Project Title">
+           <label for="First Name">Project Primary Key:</label>
+           <input type="text" id="title" name="pk" ng-model="pk" placeholder="Project PK">
+
+           <label >Description:</label>
+           <input type="text" id="description" name="Description" ng-model="Description"
+            placeholder="Project Description">
+
+           <label for="mail">Start Date (YYYY-MM-DD):</label>
+           <input type="text" id="start_date" name="start_date" ng-model="start_date"
+           ng-minlength="3"
+           ng-maxlength="30"
+           required
+           placeholder="Project Start Date"
+           >
+
+           <label for="mail">End Date (YYYY-MM-DD): </label>
+           <input type="text" id="end_date"
+           required="true" name="end_date" ng-model="end_date" placeholder="Project End Date">
+         <fieldset>
+
+
+           <label>Billable:</label>
+           <input id="radio-button-yes" checked="checked" name="billable" type="radio" ng-model="billable" value="true" />
+           <label for="radio-button-yes" class="light">Yes</label>
+
+           <input id="radio-button-no" name="billable" type="radio" value="false" ng-model="billable"/>
+           <label for="radio-button-no" class="light" >No</label>
+
+          <br>
+          <label>Active:</label>
+          <input id="radio-button-yes" checked="checked" name="active" ng-model="active" type="radio" value="true" />
+          <label for="radio-button-yes" class="light" >Yes</label>
+
+          <input id="radio-button-no" name="active" type="radio" value="false" ng-model="active" />
+          <label for="radio-button-no" class="light">No</label>
+
+         </fieldset>
+         <div ng-show="loginErrorMsg">
+           <span style="color:red" role="alert">{{message}} || {{msg}} </span>
+        </div>
+        <div>
+           <button type="submit" class="btn-secondary" ng-click = "editProject()" >Edit Project </button>
+         </div>
+
+       </form>
+  </div>
+
+
+<!-- Delete View -->
+<div class="row marketing" ng-show="DelProjectForm" ng-controller="ProjectDelCtrl">
+  <form name = "projectForm" >
+
+         <h1>Delete Project</h1>
+
+         <fieldset>
+           <legend><span class="number">1</span>Delete Project</legend>
+           <label for="First Name">Project PK:</label>
+
+           <input type="text" id="title" name="pk" ng-model="pk" placeholder="Project Primary Key">
+           <label>List of Projects: </label>
+           {list}
+           
+         </fieldset>
+         <div ng-show="loginErrorMsg">
+           <span style="color:red" role="alert">{{message}} || {{msg}} </span>
+        </div>
+           <div>
+           <button type="submit" class="btn-danger"> Delete Project</button>
+         </div>
+       </form>
+
+</div>
+
+<!

@@ -143,6 +143,8 @@
                     $cookieStore.put('Token', $rootScope.globals);
                     $log.log("Testing token:", response.data.token);
 
+                    $window.localStorage.project = JSON.stringify($http.defaults.headers.common.Authorization = 'Token ' + response.data.token);
+
                   //  service.setToken(response.data);
                     $http.defaults.headers.common['Authorization'] = 'Token ' + response.data.token; // jshint ignore:line
                     $cookieStore.put('Token', $rootScope.globals);

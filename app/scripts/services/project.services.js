@@ -13,8 +13,7 @@ angular.module('app.login')
       service.editProject = function(pk){
 
         var defer = $q.defer();
-        var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/',
-
+        var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/';
 
         $http({
                 method: 'put',
@@ -36,8 +35,7 @@ angular.module('app.login')
       service.getProject = function(pk){
 
         var defer = $q.defer();
-        var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/',
-
+        var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/';
 
         $http({
                 method: 'get',
@@ -60,8 +58,7 @@ angular.module('app.login')
         service.editProjectV1 = function(pk){
 
               var defer = $q.defer();
-              var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/',
-
+              var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/';
 
               $http({
                       method: 'patch',
@@ -84,7 +81,7 @@ angular.module('app.login')
         service.deleteProject = function(pk){
 
                 var defer = $q.defer();
-                var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/',
+                var url = '//projectservice.staging.tangentmicroservices.com/api/v1/projects/'+pk+'/';
 
                 $http({
                         method: 'delete',

@@ -139,12 +139,12 @@
                     data: data,
                  }).then(function(response){
 
-                    $http.defaults.headers.common.Authorization = 'Basic ' + response.data;
+                    $http.defaults.headers.common.Authorization = 'Basic ' + response.data.token;
                     $cookieStore.put('globals', $rootScope.globals);
-                    $log.log("Testing token:", response.data);
+                    $log.log("Testing token:", response.data.token);
 
                   //  service.setToken(response.data);
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + response.data; // jshint ignore:line
+                    $http.defaults.headers.common['Authorization'] = 'Basic ' + response.data.token; // jshint ignore:line
                     $cookieStore.put('globals', $rootScope.globals);
 
                     user = response.data;

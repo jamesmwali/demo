@@ -19,9 +19,9 @@
   <li class="nav-item">
     <a class="nav-link" ng-click="activeDelProject()">Delete Project</a>
   </li>
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link" ng-click="activeViewProject()">View All Projects</a>
-  </li>
+  </li> -->
 </ul>
 
 <div class="row marketing" ng-show="AddProjectForm" ng-controller="ProjectCtrl">
@@ -82,6 +82,11 @@
         <div ng-show="addProjectError">
           <span style="color:red" role="alert"> {{addProjectError}} </span>
        </div>
+
+
+       <div ng-show="Required">
+         <span style="color:red" role="alert"> {{Required}} </span>
+      </div>
         <div>
          <button type="submit" class="btn-secondary" ng-click = "addProject()" >Add Project</button>
        </div>
@@ -167,12 +172,12 @@
            <legend><span class="number">1</span>Delete Project</legend>
            <label for="First Name">Project PK:</label>
 
-           <input type="text" id="title" name="pk" ng-model="pk" placeholder="Project Primary Key">
-              <span  ng-show="Errormsg" style="color:red" role="alert">{{Errormsg}} </span>
+           <input type="text" id="title" name="pk" ng-model="pk" placeholder="Project Primary Key" required="true">
+           <span  ng-show="Errormsg" style="color:red" role="alert">{{Errormsg}} </span>
               <br>
-              
-           <label ng-onChange= ""> List of Projects: </label>
-           {list}
+
+           <!-- <label ng-onChange= ""> List of Projects: </label>
+           {list} -->
 
          </fieldset>
          <div ng-show="SuccessMessage">
@@ -189,4 +194,32 @@
 
 </div>
 
-<!
+<!-- View projects -->
+
+<div ng-show="projectForm" ng-controller="ViewProjectsCtrl">
+  <div  class="row marketing">
+   <form name = "project" >
+
+         <h1>Project(s)</h1>
+
+
+          <fieldset>
+            <label >Title:</label>
+
+            <label >Project Primary Key:</label>
+
+            <label >Description:</label>
+
+            <label >Start Date (YYYY-MM-DD):</label>
+
+            <label >End Date (YYYY-MM-DD): </label>
+
+            <label>Billable:</label>
+
+           <label>Active:</label>
+
+          </fieldset>
+
+    </form>
+  </div>
+</div>

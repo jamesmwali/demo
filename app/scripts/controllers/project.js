@@ -2,9 +2,27 @@
 
   'use strict';
   angular.module('app.login')
-  .controller('ProjectCtrl', ProjectCtrl);
+  .controller('ProjectCtrl', ProjectCtrl)
+  .controller('ProjectDelCtrl', ProjectDelCtrl)
+  .controller('ProjectEditCtrl', ProjectEditCtrl)
+  .controller('ViewProjectsCtrl', ViewProjectsCtrl);
 
   function ProjectCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService, $window){
+
+
+      $scope.activeViewProject = function(){
+
+        if($scope.projectForm === true){
+          $scope.projectForm = false;
+
+        }else {
+          $scope.projectForm = true;
+          $scope.EditProjectForm = false;
+          $scope.DelProjectForm = false;
+          $scope.AddProjectForm = false;
+
+        }
+      };
 
     $scope.activeAddProject = function(){
 
@@ -15,6 +33,7 @@
           $scope.AddProjectForm = true;
           $scope.DelProjectForm = false;
           $scope.EditProjectForm = false;
+          $scope.projectForm = false;
 
         }
 
@@ -28,6 +47,8 @@
         $scope.DelProjectForm = true;
         $scope.EditProjectForm = false;
         $scope.AddProjectForm = false;
+        $scope.projectForm = false;
+
 
       }
 
@@ -42,6 +63,7 @@
         $scope.EditProjectForm = true;
         $scope.DelProjectForm = false;
         $scope.AddProjectForm = false;
+        $scope.projectForm = false;
 
       }
 
@@ -53,7 +75,7 @@
        $log.log("Adding Project");
 
        var token = AuthService.getToken();
-
+  if($scope.pk!=="" && $scope.Title!== "" && $scope.Description && $scope.start_date!== ""){
 
        var data =
         {
@@ -71,7 +93,8 @@
 
          $http({
            method: 'post',
-           url: '//projectservice.staging.tangentmicroservices.com/api/v1/projects/',
+        //   url: '//projectservice.staging.tangentmicroservices.com/api/v1/projects/',
+           url : '//projectservice.staging.tangentmicroservices.com:80/api/v1/projects/',
            data: data,
          }).then(function(response){
 
@@ -97,6 +120,13 @@
              $scope.addProjectError = msg;
 
          });
+       }else {
+
+
+             $scope.Required = "PK, Title, Description And Start Date Are Required";
+
+
+       }
          //
 
 
@@ -104,6 +134,108 @@
 
 
 
+
+  }
+
+  function ProjectDelCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService){
+
+
+        $scope.deleteProject = function(){
+
+
+          if($scope.pk!=="" || $scope.pk!== "undefined"){
+
+            var pk = $scope.pk;
+            var data = {
+              "pk": $scope.pk,
+            };
+
+            ProjectService.deleteProject($scope.pk, data).
+            then(function(response){
+              if(response){
+                $log.log("Project Deleted Successfully");
+                $log.log(response);
+                $scope.SuccessMessage = "Project Deleted Successfully";
+              }else{
+                $scope.Errormsg = "Primary Key is Invalid/ Does not exist, Try Again";
+              }
+            }, function(response){
+                $log.log("failed", response);
+                $scope.Errormsg = "Primary Key is Invalid/ Does not exist, Try Again";
+
+            });
+
+          }else {
+
+              $scope.Required = "Project Primary Key (PK) is Required";
+          }
+
+        };
+
+
+
+  }
+
+  function ProjectEditCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService){
+
+
+    var createdProject = ProjectService.getNewProject();
+    $log.log("Project Created", createdProject);
+
+    if(createdProject){
+
+
+
+    };
+
+
+    $scope.projectEdit = function(){
+
+
+      if($scope.pk!=="" && $scope.Title!== "" && $scope.Description && $scope.start_date!== ""){
+
+        var pk = $scope.pk;
+        var data = {
+          "pk": $scope.pk,
+          "title": $scope.Title,
+          "description": $scope.Description,
+          "start_date": $scope.start_date,
+          "end_date": $scope.end_date,
+          "is_billable": $scope.billable,
+          "is_active": $scope.active,
+        };
+
+        ProjectService.editProject($scope.pk, data).
+        then(function(response){
+          if(response){
+            $log.log("Project Changed Successfully");
+            $log.log(response);
+            $scope.SuccessMessage = "Project Changed Successfully";
+          }else{
+            $scope.Errormsg = "Primary Key is Invalid/ Does not exist, Try Again";
+          }
+        }, function(response){
+            $log.log("failed", response);
+            $scope.Errormsg = "Primary Key is Invalid/ Does not exist, Try Again";
+
+        });
+
+      }else {
+
+          $scope.Required = "PK, Title, Description And Start Date Are Required";
+      }
+
+    }; // edit project controller
+
+  }
+
+  function ViewProjectsCtrl($log, $scope, $rootScope, $cookieStore, AuthService, $http, ProjectService){
+
+
+    $scope.viewProjects = function(){
+
+
+    }; // view project controller
 
   }
 
